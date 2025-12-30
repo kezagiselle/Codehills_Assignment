@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/Mycars")
+@RequestMapping("/api")
 public class CarController {
     private final CarService carService;
 
@@ -19,7 +19,7 @@ public class CarController {
     }
 
     // Create a new car
-    @PostMapping(value = "/AddCar", consumes = "application/json")
+    @PostMapping(value = "/cars", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
      public Car createCar(@RequestBody Map<String, Object> body) {
         String brand = (String) body.get("brand");
@@ -29,7 +29,7 @@ public class CarController {
     }
 
     // List all cars
-    @GetMapping("/getAllCars")
+    @GetMapping("/cars")
     public ResponseEntity<List<Car>> listCars() {
 
     List<Car> cars = carService.getAllCars();
@@ -44,7 +44,7 @@ public class CarController {
 
     // Add fuel entry to a car
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping(value ="/AddFuel/{id}", consumes = "application/json")
+    @PostMapping(value ="/cars/{id}/fuel", consumes = "application/json")
    public ResponseEntity<?> addFuel(
     @PathVariable("id") Long id,  
     @RequestBody Map<String, Double> body
@@ -70,19 +70,19 @@ public class CarController {
 }
 
     //get stats
-   @GetMapping("/getStats/{id}")
-    public ResponseEntity<Map<String, Double>> getStats(@PathVariable Long id) {
-
+   @GetMapping("/cars/{id}/fuel/stats")
+  public ResponseEntity<Map<String, Double>> getStats(@PathVariable("id") Long id) {
+    
     Map<String, Double> stats = carService.getFuelStatistics(id);
-
+    
     if (stats == null || stats.isEmpty()) {
         return ResponseEntity
-                .status(HttpStatus.UNAUTHORIZED) 
+                .status(HttpStatus.NOT_FOUND)  
                 .build();
     }
-
+    
     return ResponseEntity
-            .status(HttpStatus.CREATED) 
+            .status(HttpStatus.OK)  
             .body(stats);
 }
     
