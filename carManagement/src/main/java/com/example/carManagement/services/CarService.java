@@ -27,13 +27,19 @@ public class CarService {
     }
 
     //Add fuel entry to a car
-    public  void addFuel(Long carId, double liters, double price, double odometer){
-        Car car = cars.get(carId);
-        if(car == null){
-            throw new RuntimeException("Car not found");
-        }
-        car.getFuelEntries().add(new FuelEntry(liters, price, odometer));
+ public void addFuel(Long carId, Double liters, Double price, Double odometer) {
+    
+    if (liters == null || price == null || odometer == null) {
+        throw new IllegalArgumentException("All fuel parameters must be provided");
     }
+    
+    Car car = cars.get(carId);
+    if (car == null) {
+        throw new RuntimeException("Car not found");
+    }
+    
+    car.getFuelEntries().add(new FuelEntry(liters, price, odometer));
+}
 
     //fuel statistics for a car
     public Map<String, Double> getFuelStatistics(Long carId){

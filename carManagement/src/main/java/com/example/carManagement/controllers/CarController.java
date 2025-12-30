@@ -45,21 +45,33 @@ public class CarController {
     // Add fuel entry to a car
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(value ="/AddFuel/{id}", consumes = "application/json")
-      public String addFuel(
-        @PathVariable("id") Long id,  
-        @RequestBody Map<String, Double> body
-    ) {
-        carService.addFuel(
-                id,
-                body.get("liters"),
-                body.get("price"),
-                body.get("odometer")
-        );
-        return "Fuel added successfully";
+   public ResponseEntity<?> addFuel(
+    @PathVariable("id") Long id,  
+    @RequestBody Map<String, Double> body
+) {
+    
+    if (!body.containsKey("liters") || !body.containsKey("price") || !body.containsKey("odometer")) {
+        return ResponseEntity.badRequest()
+            .body("Missing required fields: liters, price, and odometer are all required");
     }
+    
+    if (body.get("liters") == null || body.get("price") == null || body.get("odometer") == null) {
+        return ResponseEntity.badRequest()
+            .body("Fields cannot be null: liters, price, and odometer must have numeric values");
+    }
+    
+    carService.addFuel(
+        id,
+        body.get("liters"),
+        body.get("price"),
+        body.get("odometer")
+    );
+    return ResponseEntity.ok("Fuel added successfully");
+}
 
     //get stats
-   public ResponseEntity<Map<String, Double>> getStats(@PathVariable Long id) {
+   @GetMapping("/getStats/{id}")
+    public ResponseEntity<Map<String, Double>> getStats(@PathVariable Long id) {
 
     Map<String, Double> stats = carService.getFuelStatistics(id);
 
