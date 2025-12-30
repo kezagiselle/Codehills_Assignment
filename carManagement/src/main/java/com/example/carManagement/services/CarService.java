@@ -42,36 +42,42 @@ public class CarService {
 }
 
     //fuel statistics for a car
-    public Map<String, Double> getFuelStatistics(Long carId){
-        Car car = cars.get(carId);
-        if(car == null){
-            throw new RuntimeException("Car not found");
-        }
-
-       double totalLiters = 0;
-       double totalCost = 0;
-       double firstOdo = 0;
-       double lastOdo = 0;
-
-       var entries = car.getFuelEntries();
-       if(!entries.isEmpty()){
-           firstOdo = entries.get(0).getOdometer();
-           lastOdo = entries.get(entries.size() -1).getOdometer();
-       }
-
-        for (FuelEntry f : entries) {
-            totalLiters += f.getLiters();
-            totalCost += f.getPrice();
-        }
-
-        double distance = lastOdo - firstOdo;
-        double avgPer100Km = distance > 0 ? (totalLiters / distance) * 100 : 0;
-
-        Map<String, Double> stats = new HashMap<>();
-        stats.put("totalFuel", totalLiters);
-        stats.put("totalCost", totalCost);
-        stats.put("averagePer100Km", avgPer100Km);
-
-        return stats;
+   public Map<String, Double> getFuelStatistics(Long carId) {
+    Car car = cars.get(carId);
+    if (car == null) {
+        return null;
     }
+
+    double totalLiters = 0;
+    double totalCost = 0;
+    double firstOdo = 0;
+    double lastOdo = 0;
+
+    var entries = car.getFuelEntries();
+    
+    if (!entries.isEmpty()) {
+        firstOdo = entries.get(0).getOdometer();
+        lastOdo = entries.get(entries.size() - 1).getOdometer();
+    }
+
+    for (FuelEntry f : entries) {
+        totalLiters += f.getLiters();
+        totalCost += f.getLiters() * f.getPrice(); // Multiply liters by price per liter
+    }
+
+    double distance = lastOdo - firstOdo;
+    double avgPer100Km = distance > 0 ? (totalLiters / distance) * 100 : 0;
+    double costPerKm = distance > 0 ? totalCost / distance : 0;
+    double costPerLiter = totalLiters > 0 ? totalCost / totalLiters : 0;
+
+    Map<String, Double> stats = new HashMap<>();
+    stats.put("totalFuel", totalLiters);
+    stats.put("totalCost", totalCost);
+    stats.put("averagePer100Km", avgPer100Km);
+    stats.put("costPerKm", costPerKm);
+    stats.put("averagePricePerLiter", costPerLiter);
+    stats.put("distanceTraveled", distance);
+
+    return stats;
+}
 }
