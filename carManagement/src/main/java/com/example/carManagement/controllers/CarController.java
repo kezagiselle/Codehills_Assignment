@@ -46,8 +46,8 @@ public class CarController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(value ="/AddFuel/{id}", consumes = "application/json")
       public String addFuel(
-            @PathVariable Long id,
-            @RequestBody Map<String, Double> body
+        @PathVariable("id") Long id,  
+        @RequestBody Map<String, Double> body
     ) {
         carService.addFuel(
                 id,
