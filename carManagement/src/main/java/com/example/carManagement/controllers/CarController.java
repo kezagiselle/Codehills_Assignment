@@ -1,11 +1,16 @@
 package com.example.carManagement.controllers;
 import com.example.carManagement.models.Car;
 import com.example.carManagement.services.*;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
 
+@RestController
+@RequestMapping("/api/cars")
 public class CarController {
     private final CarService carService;
 
@@ -14,7 +19,8 @@ public class CarController {
     }
 
     // Create a new car
-    @PostMapping("/cars")
+    @PostMapping(value = "/AddCar", consumes = "application/json")
+    @ResponseStatus(HttpStatus.CREATED)
      public Car createCar(@RequestBody Map<String, Object> body) {
         String brand = (String) body.get("brand");
         String model = (String) body.get("model");
@@ -24,12 +30,21 @@ public class CarController {
 
     // List all cars
     @GetMapping("/getAllCars")
-        public List<Car> listCars() {
-        return carService.getAllCars();
+    public ResponseEntity<List<Car>> listCars() {
+
+    List<Car> cars = carService.getAllCars();
+
+    if (cars == null || cars.isEmpty()) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
+    return ResponseEntity
+            .status(HttpStatus.CREATED)
+            .body(cars);
+}
 
     // Add fuel entry to a car
-    @PostMapping("/cars/{Id}/fuel")
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping(value ="/cars/{Id}/fuel", consumes = "application/json")
       public String addFuel(
             @PathVariable Long id,
             @RequestBody Map<String, Double> body
@@ -44,10 +59,20 @@ public class CarController {
     }
 
     //get stats
-    @GetMapping("/cars/{Id}/fuel/stats")
-       public Map<String, Double> getStats(@PathVariable Long id) {
-        return carService.getFuelStatistics(id);
+   public ResponseEntity<Map<String, Double>> getStats(@PathVariable Long id) {
+
+    Map<String, Double> stats = carService.getFuelStatistics(id);
+
+    if (stats == null || stats.isEmpty()) {
+        return ResponseEntity
+                .status(HttpStatus.UNAUTHORIZED) 
+                .build();
     }
+
+    return ResponseEntity
+            .status(HttpStatus.CREATED) 
+            .body(stats);
+}
     
 
 }
