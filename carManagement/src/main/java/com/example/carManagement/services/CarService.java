@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 //here in this service its where am going to use Lists/Maps instead of databse. (In-Memory Storage)
+@Service
 public class CarService {
     
     private Map<Long, Car> cars = new HashMap<>();

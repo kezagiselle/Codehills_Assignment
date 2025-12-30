@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/cars")
+@RequestMapping("/Mycars")
 public class CarController {
     private final CarService carService;
 
@@ -44,7 +44,7 @@ public class CarController {
 
     // Add fuel entry to a car
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping(value ="/cars/{Id}/fuel", consumes = "application/json")
+    @PostMapping(value ="/AddFuel/{id}", consumes = "application/json")
       public String addFuel(
             @PathVariable Long id,
             @RequestBody Map<String, Double> body
