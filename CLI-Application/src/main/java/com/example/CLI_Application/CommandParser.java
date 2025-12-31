@@ -2,11 +2,11 @@ package com.example.CLI_Application;
 
 import java.util.*;
 
-public class CommandParser {  // Changed from "Commands" to "CommandParser"
+public class CommandParser { 
     private final String command;
     private final Map<String, String> arguments;
 
-    // Constructor - no return type
+    // constructor
     public CommandParser(String input) {
         String[] parts = input.split("\\s+");
         

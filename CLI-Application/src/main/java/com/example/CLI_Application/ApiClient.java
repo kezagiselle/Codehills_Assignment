@@ -10,7 +10,7 @@ public class ApiClient {
     private final HttpClient httpClient;
     private final String baseUrl;
 
-    // Constructor should accept baseUrl as parameter
+    // Constructor is accepting baseUrl as parameter
     public ApiClient(String baseUrl) {
         this.baseUrl = baseUrl; 
         this.httpClient = HttpClient.newBuilder()

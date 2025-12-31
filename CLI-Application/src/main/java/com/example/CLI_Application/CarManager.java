@@ -102,10 +102,10 @@ public class CarManager {
         return 0.0;
     }
 
-    private int getSafeInt(JsonObject json, String key) {
-        if (json.has(key) && !json.get(key).isJsonNull()) {
-            return json.get(key).getAsInt();
-        }
-        return 0;
-    }
+    // private int getSafeInt(JsonObject json, String key) {
+    //     if (json.has(key) && !json.get(key).isJsonNull()) {
+    //         return json.get(key).getAsInt();
+    //     }
+    //     return 0;
+    // }
 }
