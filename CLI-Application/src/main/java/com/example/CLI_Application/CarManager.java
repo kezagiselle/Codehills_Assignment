@@ -49,10 +49,9 @@ public class CarManager {
 
         StringBuilder sb = new StringBuilder();
         sb.append("=== Fuel Statistics for Car ID: ").append(carId).append(" ===\n");
-        sb.append(String.format("Total fuel consumed: %.2f L\n", getSafeDouble(stats, "totalFuelLiters")));
-        sb.append(String.format("Total fuel cost: $%.2f\n", getSafeDouble(stats, "totalFuelCost")));
-        sb.append(String.format("Average consumption: %.1f L/100km\n", getSafeDouble(stats, "averageConsumption")));
-        sb.append(String.format("Total distance: %d km\n", getSafeInt(stats, "totalDistance")));
+        sb.append(String.format("Total fuel consumed: %.2f L\n", getSafeDouble(stats, "totalFuel")));
+        sb.append(String.format("Total fuel cost: $%.2f\n", getSafeDouble(stats, "totalCost")));
+        sb.append(String.format("Average consumption: %.1f L/100km\n", getSafeDouble(stats, "averagePer100Km")));
 
         return sb.toString();
     }
