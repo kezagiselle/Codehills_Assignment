@@ -23,7 +23,7 @@ public class CarManager {
         String response = apiClient.post("/cars", carJson.toString());
         System.out.println("DEBUG: Response from server: " + response);
 
-        JsonObject responseObj = com.google.gson.JsonParser.parseString(response).getAsJsonObject();
+        JsonObject responseObj = JsonParser.parseString(response).getAsJsonObject();
         if (!responseObj.has("id")) {
             throw new RuntimeException("Server response missing 'id' field. Content: " + response);
         }
@@ -34,27 +34,25 @@ public class CarManager {
         JsonObject fuelJson = new JsonObject();
         fuelJson.addProperty("carId", carId);
         fuelJson.addProperty("liters", liters);
-        fuelJson.addProperty("pricePerLiter", price);
-        fuelJson.addProperty("odometerReading", odometer);
+        fuelJson.addProperty("price", price);
+        fuelJson.addProperty("odometer", odometer);
 
-        apiClient.post("/cars/{id}/fuel", fuelJson.toString());
+        // Interpolate carId into the URL
+        apiClient.post("/cars/" + carId + "/fuel", fuelJson.toString());
     }
 
     public String getFuelStatistics(int carId) throws Exception {
-        String response = apiClient.get("/cars/" + carId + "/statistics");
+        String response = apiClient.get("/cars/" + carId + "/fuel/stats");
+        System.out.println("DEBUG: Stats response: " + response);
 
-        JsonObject stats = com.google.gson.JsonParser.parseString(response).getAsJsonObject();
+        JsonObject stats = JsonParser.parseString(response).getAsJsonObject();
 
         StringBuilder sb = new StringBuilder();
         sb.append("=== Fuel Statistics for Car ID: ").append(carId).append(" ===\n");
-        sb.append(String.format("Total fuel consumed: %.2f L\n",
-                stats.get("totalFuelLiters").getAsDouble()));
-        sb.append(String.format("Total fuel cost: $%.2f\n",
-                stats.get("totalFuelCost").getAsDouble()));
-        sb.append(String.format("Average consumption: %.1f L/100km\n",
-                stats.get("averageConsumption").getAsDouble()));
-        sb.append(String.format("Total distance: %d km\n",
-                stats.get("totalDistance").getAsInt()));
+        sb.append(String.format("Total fuel consumed: %.2f L\n", getSafeDouble(stats, "totalFuelLiters")));
+        sb.append(String.format("Total fuel cost: $%.2f\n", getSafeDouble(stats, "totalFuelCost")));
+        sb.append(String.format("Average consumption: %.1f L/100km\n", getSafeDouble(stats, "averageConsumption")));
+        sb.append(String.format("Total distance: %d km\n", getSafeInt(stats, "totalDistance")));
 
         return sb.toString();
     }
@@ -62,7 +60,7 @@ public class CarManager {
     public String listCars() throws Exception {
         String response = apiClient.get("/cars");
 
-        JsonArray cars = com.google.gson.JsonParser.parseString(response).getAsJsonArray();
+        JsonArray cars = JsonParser.parseString(response).getAsJsonArray();
 
         if (cars.size() == 0) {
             return "No cars found.";
@@ -86,7 +84,7 @@ public class CarManager {
     public String getCarInfo(int carId) throws Exception {
         String response = apiClient.get("/cars/" + carId);
 
-        JsonObject car = com.google.gson.JsonParser.parseString(response).getAsJsonObject();
+        JsonObject car = JsonParser.parseString(response).getAsJsonObject();
 
         StringBuilder sb = new StringBuilder();
         sb.append("=== Car Details ===\n");
@@ -96,5 +94,19 @@ public class CarManager {
         sb.append(String.format("Year: %d\n", car.get("year").getAsInt()));
 
         return sb.toString();
+    }
+
+    private double getSafeDouble(JsonObject json, String key) {
+        if (json.has(key) && !json.get(key).isJsonNull()) {
+            return json.get(key).getAsDouble();
+        }
+        return 0.0;
+    }
+
+    private int getSafeInt(JsonObject json, String key) {
+        if (json.has(key) && !json.get(key).isJsonNull()) {
+            return json.get(key).getAsInt();
+        }
+        return 0;
     }
 }

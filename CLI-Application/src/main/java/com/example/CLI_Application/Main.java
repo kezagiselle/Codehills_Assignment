@@ -19,7 +19,7 @@ public class Main {
     }
 
     private static void interactiveMode() {
-        System.out.println("=== Car Fuel Management CLI ===");
+        System.out.println("=== Car Fuel Management CLI (Updated) ===");
         System.out.println("Type 'help' for commands or 'exit' to quit");
 
         while (true) {
