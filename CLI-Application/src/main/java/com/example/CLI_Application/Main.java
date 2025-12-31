@@ -2,10 +2,9 @@ package com.example.CLI_Application;
 
 import java.util.Scanner;
 
-
 //entry point
 public class Main {
-     private static final String API_BASE_URL = "http://localhost:8080/api";
+    private static final String API_BASE_URL = "http://localhost:8080/api";
     private static final Scanner scanner = new Scanner(System.in);
     private static final ApiClient apiClient = new ApiClient(API_BASE_URL);
     private static final CarManager carManager = new CarManager(apiClient);
@@ -106,7 +105,8 @@ public class Main {
             Integer carId = carManager.createCar(brand, model, year);
             System.out.println("✓ Car created successfully! ID: " + carId);
         } catch (Exception e) {
-            System.err.println("Failed to create car: " + e.getMessage());
+            System.err.println("Failed to create car: " + e);
+            e.printStackTrace();
         }
     }
 

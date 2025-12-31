@@ -12,7 +12,7 @@ public class ApiClient {
 
     // Constructor should accept baseUrl as parameter
     public ApiClient(String baseUrl) {
-        this.baseUrl = baseUrl;  // Assign parameter to field
+        this.baseUrl = baseUrl; 
         this.httpClient = HttpClient.newBuilder()
                 .connectTimeout(Duration.ofSeconds(10))
                 .build();
