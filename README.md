@@ -87,13 +87,13 @@ mvn spring-boot:run
 - Exit: `exit`
 ```
 
-## Formulas
+### Formulas
 
 - This are the calculations i used for the following:
 ```bash
-- Total fuel: `Total Fuel = sum of liters from all fuel entries`     
+- Total fuel: `sum of liters from all fuel entries`     
 - Total cost: `f.getLiters() * f.getPrice()`     
-- Average: `(totalLiters / distance) * 100`
+- Average consumption: `(totalLiters / distance) * 100`
 ```
 
 ## Authors
