@@ -18,7 +18,7 @@ public class CarController {
         this.carService = carService;
     }
 
-    // Create a new car
+    
     @PostMapping(value = "/cars", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
      public Car createCar(@RequestBody Map<String, Object> body) {
@@ -28,7 +28,7 @@ public class CarController {
         return carService.createCar(brand, model, year);
     }
 
-    // List all cars
+    
     @GetMapping("/cars")
     public ResponseEntity<List<Car>> listCars() {
 
@@ -42,7 +42,7 @@ public class CarController {
             .body(cars);
 }
 
-    // Add fuel entry to a car
+    
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(value ="/cars/{id}/fuel", consumes = "application/json")
    public ResponseEntity<?> addFuel(
@@ -69,7 +69,7 @@ public class CarController {
     return ResponseEntity.ok("Fuel added successfully");
 }
 
-    //get stats
+    
    @GetMapping("/cars/{id}/fuel/stats")
   public ResponseEntity<Map<String, Double>> getStats(@PathVariable("id") Long id) {
     

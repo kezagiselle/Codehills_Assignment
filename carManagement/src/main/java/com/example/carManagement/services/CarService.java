@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-//here in this service its where am going to use Lists/Maps instead of databse. (In-Memory Storage)
+
 @Service
 public class CarService {
     
@@ -14,19 +14,19 @@ public class CarService {
     private long idCounter = 1;
 
 
-    //create a new car
+
     public Car createCar(String brand, String model, int year) {
         Car car = new Car(idCounter++, brand, model, year);
         cars.put(car.getId(), car);
         return car;
     }
 
-    //List all cars
+    
     public List<Car> getAllCars() {
         return new ArrayList<>(cars.values());
     }
 
-    //Add fuel entry to a car
+    
  public void addFuel(Long carId, Double liters, Double price, Double odometer) {
     
     if (liters == null || price == null || odometer == null) {
@@ -41,7 +41,7 @@ public class CarService {
     car.getFuelEntries().add(new FuelEntry(liters, price, odometer));
 }
 
-    //fuel statistics for a car
+    
    public Map<String, Double> getFuelStatistics(Long carId) {
     Car car = cars.get(carId);
     if (car == null) {
@@ -62,7 +62,7 @@ public class CarService {
 
     for (FuelEntry f : entries) {
         totalLiters += f.getLiters();
-        totalCost += f.getLiters() * f.getPrice(); // Multiply liters by price per liter
+        totalCost += f.getLiters() * f.getPrice(); 
     }
 
     double distance = lastOdo - firstOdo;

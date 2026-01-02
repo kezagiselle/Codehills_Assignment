@@ -28,21 +28,21 @@ public class FuelStatsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
             throws ServletException, IOException {
         
-        // 1. Set content type
+        
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
         
-        // 2. Manually parse carId from query parameters
+        
         String carIdParam = req.getParameter("carId");
         
-        // 3. Validate parameter
+        
         if (carIdParam == null || carIdParam.trim().isEmpty()) {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             resp.getWriter().write("{\"error\":\"Missing carId parameter\"}");
             return;
         }
         
-        // 4. Parse and validate numeric format
+        
         Long carId;
         try {
             carId = Long.parseLong(carIdParam);
@@ -53,23 +53,23 @@ public class FuelStatsServlet extends HttpServlet {
         }
         
         try {
-            // 5. Use same Service layer as REST API
+
             Map<String, Double> stats = carService.getFuelStatistics(carId);
             
-            // 6. Handle not found or empty data
+            
             if (stats == null || stats.isEmpty()) {
                 resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
                 resp.getWriter().write("{\"error\":\"Car not found or no fuel data\"}");
                 return;
             }
             
-            // 7. Manually generate JSON response
+            
             String json = generateJson(stats);
             resp.setStatus(HttpServletResponse.SC_OK);
             resp.getWriter().write(json);
             
         } catch (RuntimeException e) {
-            // Handle service exceptions
+            
             resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
             resp.getWriter().write("{\"error\":\"" + e.getMessage() + "\"}");
         }
