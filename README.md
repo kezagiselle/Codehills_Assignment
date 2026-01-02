@@ -7,12 +7,12 @@
 - [Installation](#installation)
   - [Prerequisites](#prerequisites)
   - [Setup](#setup)
-  - [Part 1](#Part1)
-- [Endpoints 1](#endpoints-1)
-    - [Part 2](#Part2)
-- [Endpoints 2](#endpoints-2)
-    - [Part 3](#Part3)
-- [CLI Commands](#CLI-Commands)
+- [Part 1](#Part1)
+  - [Endpoints 1](#endpoints-1)
+- [Part 2](#Part2)
+  - [Endpoints 2](#endpoints-2)
+- [Part 3](#Part3)
+  - [CLI Commands](#CLI-Commands)
 - [Authors](#authors)
 
 ## Description
