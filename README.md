@@ -69,7 +69,7 @@ cd Codehills_Assignment
 cd CLI-Application
 ```
 - Run your backend server
-- Then run this:
+- Then run this in the CLI-Application:
 ```bash
 mvn spring-boot:run
 ```
