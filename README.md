@@ -77,7 +77,7 @@ mvn spring-boot:run
 ### CLI Commands
 
 ```bash
-- Create Car: create-car --brand <brand> --model <model> --year <year>
+- Create Car: `create-car --brand <brand> --model <model> --year <year>`
 - Add Fuel: `add-fuel --carId <id> --liters <liters> --price <price> --odometer <odometer>`
 - Fuel Stats: `fuel-stats --carId <id>`
 - List Cars:  `list-cars`
