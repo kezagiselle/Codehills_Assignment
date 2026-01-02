@@ -45,7 +45,7 @@ cd Codehills_Assignment
 | --- | --- | --- |
 | POST | `/api/cars` | Create Car |
 | GET | `/api/cars` | List Cars |
-| POST | `/api/cars/{id}/fuel` | Add Fuel |
+| POST | `/api/cars/{id}/fuel` | Add Fuel for a specific car|
 | GET | `/api/cars/{id}/fuel/stats` | Get Stats |
 
 
