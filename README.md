@@ -13,7 +13,7 @@
   - [Endpoints 2](#endpoints-2)
 - [Part 3](#Part3)
   - [CLI Commands](#CLI-Commands)
-  -[Formulas](#Formulas)
+-[Formulas](#Formulas)
 - [Authors](#authors)
 
 ## Description
@@ -93,7 +93,7 @@ mvn spring-boot:run
 ```bash
 - Total fuel: `Total Fuel = sum of liters from all fuel entries`     
 - Total cost: `f.getLiters() * f.getPrice()`     
-- Average consumption: `(totalLiters / distance) * 100`
+- Average: `(totalLiters / distance) * 100`
 ```
 
 ## Authors
