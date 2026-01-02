@@ -13,7 +13,6 @@
   - [Endpoints 2](#endpoints-2)
 - [Part 3](#Part3)
   - [CLI Commands](#CLI-Commands)
--[Formulas](#Formulas)
 - [Authors](#authors)
 
 ## Description
