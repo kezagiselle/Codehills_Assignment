@@ -13,6 +13,7 @@
   - [Endpoints 2](#endpoints-2)
 - [Part 3](#Part3)
   - [CLI Commands](#CLI-Commands)
+-[Formulas](#Formulas)
 - [Authors](#authors)
 
 ## Description
@@ -84,6 +85,20 @@ mvn spring-boot:run
 - Car Info: `car-info --carId <id>`
 - Help: `help`
 - Exit: `exit`
+```
+
+## Formulas
+
+- This are the calculations i used for the following:
+```bash
+- Total fuel: `Total Fuel = sum of liters from all fuel entries`  
+              `totalLiters += f.getLiters()`
+
+- Total cost: `sum of (liters × price per liter) for each entry`
+              `totalCost += f.getLiters() * f.getPrice()`
+      
+- Average consumption: `(Total Liters ÷ Distance) × 100`
+                       `(totalLiters / distance) * 100`
 ```
 
 ## Authors
