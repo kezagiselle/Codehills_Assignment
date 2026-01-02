@@ -93,10 +93,8 @@ mvn spring-boot:run
 ```bash
 - Total fuel: `Total Fuel = sum of liters from all fuel entries`  
               `totalLiters += f.getLiters()`
-
 - Total cost: `sum of (liters × price per liter) for each entry`
-              `totalCost += f.getLiters() * f.getPrice()`
-      
+              `totalCost += f.getLiters() * f.getPrice()`     
 - Average consumption: `(Total Liters ÷ Distance) × 100`
                        `(totalLiters / distance) * 100`
 ```
