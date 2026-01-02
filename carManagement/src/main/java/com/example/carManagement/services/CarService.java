@@ -1,6 +1,7 @@
 package com.example.carManagement.services;
 import com.example.carManagement.models.Car;
 import com.example.carManagement.models.FuelEntry;
+import com.example.carManagement.exceptions.ResourceNotFoundException;  
 
 import org.springframework.stereotype.Service;
 
@@ -35,7 +36,8 @@ public class CarService {
     
     Car car = cars.get(carId);
     if (car == null) {
-        throw new RuntimeException("Car not found");
+               throw new ResourceNotFoundException("Car with id " + carId + " not found");
+
     }
     
     car.getFuelEntries().add(new FuelEntry(liters, price, odometer));

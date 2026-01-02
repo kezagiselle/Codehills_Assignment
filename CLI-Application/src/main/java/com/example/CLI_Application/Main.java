@@ -2,7 +2,7 @@ package com.example.CLI_Application;
 
 import java.util.Scanner;
 
-//entry point
+
 public class Main {
     private static final String API_BASE_URL = "http://localhost:8080/api";
     private static final Scanner scanner = new Scanner(System.in);
@@ -103,7 +103,7 @@ public class Main {
 
         try {
             Integer carId = carManager.createCar(brand, model, year);
-            System.out.println("✓ Car created successfully! ID: " + carId);
+            System.out.println("Car created successfully! ID: " + carId);
         } catch (Exception e) {
             System.err.println("Failed to create car: " + e);
             e.printStackTrace();
@@ -118,7 +118,7 @@ public class Main {
 
         try {
             carManager.addFuelEntry(carId, liters, price, odometer);
-            System.out.println("✓ Fuel entry added successfully!");
+            System.out.println("Fuel entry added successfully!");
         } catch (Exception e) {
             System.err.println("Failed to add fuel entry: " + e.getMessage());
         }
